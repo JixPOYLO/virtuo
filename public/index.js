@@ -160,12 +160,12 @@ const actors = [{
 }];
 
 //step1:
-var i, j, km= "";
+var i, j ="";
 for (i in rentals){
   for(j in cars){
     if(cars[j].id == rentals[i].carId)
     {
-      km = rentals[i].distance * cars[j].pricePerKm;
+      var km = rentals[i].distance * cars[j].pricePerKm;
       var date2=new Date(rentals[i].returnDate);
       var date1 =new Date(rentals[i].pickupDate) ;
       var diff = dateDiff(date1,date2);
@@ -173,18 +173,22 @@ for (i in rentals){
       
       if(days==0){days=1;}
 
-      var t=days * cars[j].pricePerDay; 
-      
+      var t1= days * cars[j].pricePerDay; 
+
+      var discount = mydays(days);
+      var t= cars[j].pricePerDay + 0.9*discount.ninety * cars[j].pricePerDay + 0.7*discount.seventy * cars[j].pricePerDay+0.5*discount.fifty * cars[j].pricePerDay; 
       var rentalprice = km+t;
+      var rentalpricewithoutdiscount= km+t1;
+
     }
 
   }
   console.log(rentals[i].id);
+  console.log("rental price without discount: "  + rentalpricewithoutdiscount)
   console.log("rental price : "  + rentalprice)
 }
 
-console.log("hey");
-console.log(cars[1].name);
+
 console.log(cars);
 console.log(rentals);
 console.log(actors);
@@ -207,4 +211,40 @@ function dateDiff(date1, date2){
   //console.log(diff.day);
   
   return diff;
+}
+
+
+//step2:
+function mydays(days){
+  var tab={}
+  
+  if (days-10>0)
+  {
+    tab.fifty=days-10;
+    tab.seventy=6;
+    tab.ninety=3;
+    tab.full=1;
+  }
+  else if(days-4>0)
+  {
+    tab.fifty=0;
+    tab.seventy=days-4;
+    tab.ninety=3;
+    tab.full=1;
+  }
+  else if(days-1>0)
+  {
+    tab.fifty=0;
+    tab.seventy=0;
+    tab.ninety=days-1;
+    tab.full=1;
+  }
+  else 
+  {
+    tab.fifty=0;
+    tab.seventy=0;
+    tab.ninety=0;
+    tab.full=1;
+  }
+  return tab;
 }
