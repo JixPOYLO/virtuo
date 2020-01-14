@@ -221,7 +221,8 @@ for (i in rentals){
       actors[k].payment[4].amount= rentals[i].commission.virtuo;
      
       actors[k].payment[1].amount= rentals[i].price -rentals[i].commission.virtuo -rentals[i].commission.treasury-rentals[i].commission.insurance;
-      
+      actors[k].payment[1].amount= rentals[i].price - actors[k].payment[4].amount - actors[k].payment[3].amount- actors[k].payment[2].amount;
+
 
       var l=" ";
       console.log("payment :");
