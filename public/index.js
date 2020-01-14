@@ -184,13 +184,20 @@ for (i in rentals){
 
   }
   console.log(rentals[i].id);
-  console.log("rental price without discount: "  + rentalpricewithoutdiscount)
-  console.log("rental price : "  + rentalprice)
+ // console.log("rental price without discount: "  + rentalpricewithoutdiscount)
+
   var com=commission(rentalprice,days);   
+  if (rentals[i].options.deductibleReduction == true)
+   {
+    rentalprice=rentalprice+4*days;
+    com.virtuo=com.virtuo+4*days;
+   }
+  console.log("rental price : "  + rentalprice)
   console.log("commission : "+ com.commi);
   console.log("  insurance : "+ com.insurance);
   console.log("  tresory : "+ com.tresory);
   console.log("  for virtuo : "+ com.virtuo);
+
 }
 
 
@@ -217,7 +224,6 @@ function dateDiff(date1, date2){
   
   return diff;
 }
-
 
 //step2:
 function mydays(days){
@@ -270,3 +276,6 @@ function commission(rprice, days)
   return com;
 
 }
+
+//step 4:
+
