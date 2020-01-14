@@ -186,6 +186,11 @@ for (i in rentals){
   console.log(rentals[i].id);
   console.log("rental price without discount: "  + rentalpricewithoutdiscount)
   console.log("rental price : "  + rentalprice)
+  var com=commission(rentalprice,days);   
+  console.log("commission : "+ com.commi);
+  console.log("  insurance : "+ com.insurance);
+  console.log("  tresory : "+ com.tresory);
+  console.log("  for virtuo : "+ com.virtuo);
 }
 
 
@@ -247,4 +252,21 @@ function mydays(days){
     tab.full=1;
   }
   return tab;
+}
+
+//step 3:
+function commission(rprice, days)
+{
+  var com={}
+
+  com.commi=0.3*rprice;
+
+  com.insurance = 0.5*com.commi;
+
+  com.tresory=days;
+
+  com.virtuo=com.commi-com.tresory-com.insurance;
+
+  return com;
+
 }
