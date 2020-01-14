@@ -26,6 +26,7 @@ const cars = [{
 //The `price` is updated from step 1 and 2
 //The `commission` is updated from step 3
 //The `options` is useful for step 4
+
 const rentals = [{
   'id': '893a04a3-e447-41fe-beec-9a6bfff6fdb4',
   'driver': {
@@ -158,6 +159,52 @@ const actors = [{
   }]
 }];
 
+//step1:
+var i, j, km= "";
+for (i in rentals){
+  for(j in cars){
+    if(cars[j].id == rentals[i].carId)
+    {
+      km = rentals[i].distance * cars[j].pricePerKm;
+      var date2=new Date(rentals[i].returnDate);
+      var date1 =new Date(rentals[i].pickupDate) ;
+      var diff = dateDiff(date1,date2);
+      var days= diff.day;
+      
+      if(days==0){days=1;}
+
+      var t=days * cars[j].pricePerDay; 
+      
+      var rentalprice = km+t;
+    }
+
+  }
+  console.log(rentals[i].id);
+  console.log("rental price : "  + rentalprice)
+}
+
+console.log("hey");
+console.log(cars[1].name);
 console.log(cars);
 console.log(rentals);
 console.log(actors);
+
+function dateDiff(date1, date2){
+  var diff = {}                           // Initialisation du retour
+  var tmp = date2 - date1;
+
+  tmp = Math.floor(tmp/1000);             // Nombre de secondes entre les 2 dates
+  diff.sec = tmp % 60;                    // Extraction du nombre de secondes
+ // console.log(diff.sec);
+  tmp = Math.floor((tmp-diff.sec)/60);    // Nombre de minutes (partie entière)
+  diff.min = tmp % 60;                    // Extraction du nombre de minutes
+ // console.log(diff.min);
+  tmp = Math.floor((tmp-diff.min)/60);    // Nombre d'heures (entières)
+  diff.hour = tmp % 24;                   // Extraction du nombre d'heures
+ // console.log(diff.hour);
+  tmp = Math.floor((tmp-diff.hour)/24);   // Nombre de jours restants
+  diff.day = tmp;
+  //console.log(diff.day);
+  
+  return diff;
+}
