@@ -183,13 +183,15 @@ for (i in rentals){
     }
 
   }
-  console.log(rentals[i].id);
+  console.log(" ");
+  console.log("rentals id : "+rentals[i].id);
  // console.log("rental price without discount: "  + rentalpricewithoutdiscount)
 
   var com=commission(rentals[i].price,days); 
   rentals[i].commission.virtuo=com.virtuo;
   rentals[i].commission.tresory = com.tresory;
   rentals[i].commission.insurance=com.insurance;  
+
   if (rentals[i].options.deductibleReduction == true)
    {
     rentals[i].price=rentals[i].price+4*days;
@@ -203,13 +205,39 @@ for (i in rentals){
   console.log("  for virtuo : "+ rentals[i].commission.virtuo);
 
   //step 5 :
+
   var k=" ";
   for (k in actors)
   {
     if (actors[k].rentalId == rentals[i].id)
     {
-      console.log("hey");
+
+      actors[k].payment[0].amount= rentals[i].price;
+
+      actors[k].payment[2].amount= rentals[i].commission.insurance;
+      
+      actors[k].payment[3].amount= rentals[i].commission.tresory;
+      
+      actors[k].payment[4].amount= rentals[i].commission.virtuo;
+     
+      actors[k].payment[1].amount= rentals[i].price -rentals[i].commission.virtuo -rentals[i].commission.treasury-rentals[i].commission.insurance;
+      
+
+      var l=" ";
+      console.log("payment :");
+      for (l in actors[k].payment)
+      {
+       console.log(" ");
+       console.log(" who : " + actors[k].payment[l].who);
+       console.log(" type :" + actors[k].payment[l].type);
+       console.log(" amount :" +actors[k].payment[l].amount);
+      }
+
+      console.log(" ");
+
+
     }
+    
   }
 }
 
@@ -294,3 +322,4 @@ function commission(rprice, days)
 //done
 
 //step 5:
+//done
