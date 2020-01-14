@@ -177,8 +177,8 @@ for (i in rentals){
 
       var discount = mydays(days);
       var t= cars[j].pricePerDay + 0.9*discount.ninety * cars[j].pricePerDay + 0.7*discount.seventy * cars[j].pricePerDay+0.5*discount.fifty * cars[j].pricePerDay; 
-      var rentalprice = km+t;
-      var rentalpricewithoutdiscount= km+t1;
+      rentals[i].price = km+t;
+      //var rentalpricewithoutdiscount= km+t1;
 
     }
 
@@ -186,18 +186,31 @@ for (i in rentals){
   console.log(rentals[i].id);
  // console.log("rental price without discount: "  + rentalpricewithoutdiscount)
 
-  var com=commission(rentalprice,days);   
+  var com=commission(rentals[i].price,days); 
+  rentals[i].commission.virtuo=com.virtuo;
+  rentals[i].commission.tresory = com.tresory;
+  rentals[i].commission.insurance=com.insurance;  
   if (rentals[i].options.deductibleReduction == true)
    {
-    rentalprice=rentalprice+4*days;
-    com.virtuo=com.virtuo+4*days;
+    rentals[i].price=rentals[i].price+4*days;
+    rentals[i].commission.virtuo=rentals[i].commission.virtuo+4*days;
+    
    }
-  console.log("rental price : "  + rentalprice)
-  console.log("commission : "+ com.commi);
-  console.log("  insurance : "+ com.insurance);
-  console.log("  tresory : "+ com.tresory);
-  console.log("  for virtuo : "+ com.virtuo);
+  
+  console.log("rental price : "  + rentals[i].price)
+  console.log("  insurance : "+ rentals[i].commission.insurance);
+  console.log("  tresory : "+ rentals[i].commission.tresory);
+  console.log("  for virtuo : "+ rentals[i].commission.virtuo);
 
+  //step 5 :
+  var k=" ";
+  for (k in actors)
+  {
+    if (actors[k].rentalId == rentals[i].id)
+    {
+      console.log("hey");
+    }
+  }
 }
 
 
@@ -278,4 +291,6 @@ function commission(rprice, days)
 }
 
 //step 4:
+//done
 
+//step 5:
